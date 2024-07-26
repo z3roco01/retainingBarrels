@@ -3,18 +3,21 @@ package z3roco01.retainingbarrels;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import z3roco01.retainingbarrels.network.OpenBarrelPayload;
 import z3roco01.retainingbarrels.render.BarrelTrinketFeatureRenderer;
+import z3roco01.retainingbarrels.util.BarrelTrinketUtil;
 
 public class RetainingBarrelsClient implements ClientModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(RetainingBarrels.MODID + "_client");
@@ -37,8 +40,10 @@ public class RetainingBarrelsClient implements ClientModInitializer {
 		);
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if(openBarrelKeybind.isPressed())
-				client.player.sendMessage(Text.literal("pneis"));
+			ClientPlayerEntity player = client.player;
+			// if the keybind was pressed and the player is wearing a barrel
+			if(openBarrelKeybind.isPressed() && BarrelTrinketUtil.isWearingBarrel(player))
+				ClientPlayNetworking.send(new OpenBarrelPayload(BarrelTrinketUtil.getWornBarrel(player).get()));
 		});
 	}
 }
