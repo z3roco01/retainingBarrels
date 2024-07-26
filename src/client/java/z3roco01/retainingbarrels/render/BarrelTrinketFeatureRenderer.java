@@ -6,7 +6,6 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
@@ -16,7 +15,7 @@ import net.minecraft.util.math.RotationAxis;
 import z3roco01.retainingbarrels.util.BarrelTrinketUtil;
 
 public class BarrelTrinketFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
-    public BarrelTrinketFeatureRenderer(FeatureRendererContext<T, M> context, EntityModelLoader loader) {
+    public BarrelTrinketFeatureRenderer(FeatureRendererContext<T, M> context) {
         super(context);
     }
     @Override
