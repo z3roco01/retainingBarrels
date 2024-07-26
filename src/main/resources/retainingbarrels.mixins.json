@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "z3roco01.retainingbarrels.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"BarrelBlockMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

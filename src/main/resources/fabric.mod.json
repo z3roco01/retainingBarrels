@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "retaining_barrels",
+	"version": "${version}",
+	"name": "Retaining Barrels",
+	"description": "Makes barrels keep their contents when broken and equibable in trinkets back slot",
+	"authors": [
+		"z3roco01"
+	],
+	"contact": {
+	},
+	"license": "Unlicense",
+	"icon": "assets/retainingbarrels/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"z3roco01.retainingbarrels.RetainingBarrels"
+		],
+		"client": [
+			"z3roco01.retainingbarrels.RetainingBarrelsClient"
+		]
+	},
+	"mixins": [
+		"retainingbarrels.mixins.json",
+		{
+			"config": "retainingbarrels.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.21",
+		"java": ">=21",
+		"fabric-api": "*",
+		"trinkets": "3.10.0"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
