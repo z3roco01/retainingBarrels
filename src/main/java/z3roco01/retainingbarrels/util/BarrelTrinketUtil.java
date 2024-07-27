@@ -3,11 +3,15 @@ package z3roco01.retainingbarrels.util;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Pair;
+import net.minecraft.util.collection.DefaultedList;
 
+import java.util.List;
 import java.util.Optional;
 
 public class BarrelTrinketUtil {
@@ -31,4 +35,27 @@ public class BarrelTrinketUtil {
         return getWornBarrel(entity).isPresent();
     }
 
+    public static List<ItemStack> getBarrelContents(LivingEntity entity) {
+        if(!isWearingBarrel(entity)) return List.of();
+
+        // Get the barrel stack
+        ItemStack barrelStack = getWornBarrel(entity).get();
+        List<ItemStack> items = DefaultedList.ofSize(27, ItemStack.EMPTY);
+        // Get the container component and add a list of the streamed objects to the defaulted list
+        List<ItemStack> barrelItems = barrelStack.get(DataComponentTypes.CONTAINER).stream().toList();
+
+        // Add the barrel items to the defaulted item list
+        for(int i = 0; i < barrelItems.size(); ++i)
+            items.set(i, barrelItems.get(i));
+
+        return items;
+    }
+
+    public static void setBarrelContents(LivingEntity entity, List<ItemStack> stacks) {
+        if(!isWearingBarrel(entity)) return;
+
+        ItemStack barrel = getWornBarrel(entity).get();
+
+        barrel.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(stacks));
+    }
 }
