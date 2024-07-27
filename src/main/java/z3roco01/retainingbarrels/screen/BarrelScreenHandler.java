@@ -41,17 +41,13 @@ public class BarrelScreenHandler extends ScreenHandler {
         for (j = 0; j < 9; ++j) {
             this.addSlot(new Slot(playerInventory, j, 8 + j * 18, 161 + i));
         }
-        // Sets each slot to a custom slot that will only allow items to be inserted if they are valid.
-
     }
 
-    // Returns if the player can use this screen.
     @Override
     public boolean canUse(PlayerEntity player) {
         return this.inventory.canPlayerUse(player);
     }
 
-    // Called on shift+click.
     @Override
     public ItemStack quickMove(PlayerEntity player, int slot) {
         ItemStack itemStack = ItemStack.EMPTY;
@@ -71,7 +67,6 @@ public class BarrelScreenHandler extends ScreenHandler {
         return itemStack;
     }
 
-    // Calls when the screen is closed.
     @Override
     public void onClosed(PlayerEntity player) {
         super.onClosed(player);
