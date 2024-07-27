@@ -3,6 +3,7 @@ package z3roco01.retainingbarrels;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -28,6 +29,12 @@ public class BarrelInventory extends SimpleInventory {
         // Set the contents of the players worn barrel
         BarrelTrinketUtil.setBarrelContents(player, this.getHeldStacks());
         super.markDirty();
+    }
+
+    @Override
+    public boolean canInsert(ItemStack stack) {
+        RetainingBarrels.LOGGER.info(stack.toString());
+        return stack.getItem() != Items.BARREL;
     }
 
     @Override

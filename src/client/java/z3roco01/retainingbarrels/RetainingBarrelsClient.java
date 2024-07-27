@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -17,6 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import z3roco01.retainingbarrels.network.OpenBarrelPayload;
 import z3roco01.retainingbarrels.render.BarrelTrinketFeatureRenderer;
+import z3roco01.retainingbarrels.screen.BarrelScreen;
+import z3roco01.retainingbarrels.screen.RBScreenHandlers;
 import z3roco01.retainingbarrels.util.BarrelTrinketUtil;
 
 public class RetainingBarrelsClient implements ClientModInitializer {
@@ -45,5 +48,7 @@ public class RetainingBarrelsClient implements ClientModInitializer {
 			if(openBarrelKeybind.isPressed() && BarrelTrinketUtil.isWearingBarrel(player))
 				ClientPlayNetworking.send(new OpenBarrelPayload(BarrelTrinketUtil.getWornBarrel(player).get()));
 		});
+
+		HandledScreens.register(RBScreenHandlers.BARREL_SCREEN_HANDLER, BarrelScreen::new);
 	}
 }

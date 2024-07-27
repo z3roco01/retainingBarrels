@@ -5,12 +5,12 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import z3roco01.retainingbarrels.network.OpenBarrelPayload;
+import z3roco01.retainingbarrels.screen.BarrelScreenHandler;
 import z3roco01.retainingbarrels.util.BarrelTrinketUtil;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class RetainingBarrels implements ModInitializer {
 			BarrelInventory barrelInventory = new BarrelInventory(barrelItems, barrelStack, player);
 
 			// Create and open a screen handler for the barrel
-			player.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, playerInventory, Player) -> GenericContainerScreenHandler.createGeneric9x3(syncId, playerInventory, barrelInventory),
+			player.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, playerInventory, Player) -> new BarrelScreenHandler(syncId, playerInventory, barrelInventory),
 					barrelStack.getName()));
 		});
 	}
